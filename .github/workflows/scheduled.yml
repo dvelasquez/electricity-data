@@ -1,0 +1,32 @@
+name: Puppeteer Scheduled RUN
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+jobs:
+  update_results:
+    name: Run Puppeteer and update results
+    runs-on: ubuntu-latest
+    env:
+      CI: 'true'
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+      - name: Install node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: 12.x
+      - name: Install stuff
+        run: npm install
+        env:
+          PUPPETEER_SKIP_CHROMIUM_DOWNLOAD: 'true'
+      - name: Run headful puppeteer tests
+        uses: djp3/puppeteer-headful@master
+        with:
+          args: npm test
+      - name: Push to built branch
+        uses: Automattic/action-commit-to-branch@master
+        with:
+          branch: 'master'
+          commit_message: 'Update results'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Required
