@@ -1,5 +1,7 @@
 name: Puppeteer Headful CI
-on: push
+on:
+  schedule:
+    - cron: "*/5 * * * *"
 jobs:
   end_to_end_tests:
     name: Run Headful End-to-End Tests
@@ -21,3 +23,10 @@ jobs:
         uses: djp3/puppeteer-headful@master
         with:
           args: npm test
+      - name: Push to built branch
+        uses: Automattic/action-commit-to-branch@master
+        with:
+          branch: 'master'
+          commit_message: 'Update results'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Required
