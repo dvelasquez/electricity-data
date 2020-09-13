@@ -4,8 +4,7 @@
   "description": "",
   "main": "runner.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "run": "ts-node runner.ts"
+    "test": "ts-node runner.ts"
   },
   "author": "",
   "license": "ISC",
