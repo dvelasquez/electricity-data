@@ -1,7 +1,5 @@
 name: Puppeteer Headful CI
-on:
-  schedule:
-    - cron: "*/5 * * * *"
+on: push
 jobs:
   end_to_end_tests:
     name: Run Headful End-to-End Tests
