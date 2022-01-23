@@ -22,7 +22,7 @@ const createFileName = () => {
   await page.reload({waitUntil: 'domcontentloaded'});
 
   page.on('response', async response => {
-    if (response.url().includes('/v3/state')) {
+    if (response.url().includes('/v4/state')) {
       const resp = await response.json();
 
       await fs.promises.writeFile(`api-response/${createFileName()}.json`, JSON.stringify(resp), 'utf-8')
